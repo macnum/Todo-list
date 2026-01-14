@@ -1,25 +1,72 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Todo List</title>
-    </head>
-    <body>
-        <h1>Todo List</h1>
-        <header>
-            <h2>Header</h2>
-        </header>
-        <main>
-            <section>
-                <h3>Todo List</h3>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./index.js" type="module"></script>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <form action="#" id="task-form">
+            <div class="form-control">
+                <input class="form-input" name="title" type="text" id="title" placeholder="T0-do name">
+            </div>
+            <div class="form-control">
+                <textarea name="description" id="description" cols="30" rows="2">Add a description</textarea>
+            </div>
+            <div class="form-control">
+                <input class="form-input" name="date" type="date" id="dueDate">
+            </div>
+            <div class="form-control">
+                <select name="priority" id="priority">
+                    <option value="priority 1">priority 1</option>
+                    <option value="priority 2">priority 2</option>
+                    <option value="priority 3">priority 3</option>
+                    <option value="priority 4">priority 4</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <main>
+        <div class="nav-list">
+            <nav class="nav">
+                <h3><i class="fa-solid fa-plus-circle"></i> Add task</h3>
                 <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
+
+                    <li><i class="fa-solid fa-search"></i> Search</li>
+                    <li><i class="fa-solid fa-inbox"></i> Inbox</li>
+                    <li><i class="fa-solid fa-calendar-day"></i> Today</li>
+                    <li><i class="fa-solid fa-calendar-week"></i> Upcoming</li>
+                    <li><i class="fa-solid fa-filter"></i> Filters & Labels</li>
                 </ul>
-            </section>
-        </main>
-        <div id="root"></div>
-    </body>
+            </nav>
+            <nav class="nav">
+                <h3><button class="btn"><i class="fa-solid fa-person-circle-plus"></i></button> My Project</h3>
+                <ul>
+
+                    <!-- <li><button class="btn"><i class="fa-solid fa-search"></i></button> fitness</li> -->
+
+                </ul>
+            </nav>
+        </div>
+        <div class="content-container">
+            <ul class="items" id="task-list">
+
+            </ul>
+        </div>
+    </main>
+
+</body>
+
 </html>
