@@ -73,6 +73,10 @@ h1,h3{
     margin: 0 5px 20px;
     font-weight: 700;
 }
+.items li.completed {
+    text-decoration: line-through;
+    color: #bdb4b4;
+}
 input[type="checkbox"]{
    accent-color: #d70b71;
    margin: 20px;

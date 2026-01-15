@@ -14,10 +14,11 @@ const priorityInput = document.querySelector('#priority');
 
 const list = document.querySelector('#task-list');
 
+let editingTaskId = null;
+
 const projectManager = new ProjectManager('MY Projects');
 projectManager.addProject(new Project('Default'));
 const activeProject = projectManager.getActiveProject();
-console.log(activeProject);
 
 function createTask(e) {
 	e.preventDefault();
@@ -50,6 +51,21 @@ function removeItem(e) {
 		DOM.renderTasks(activeProject);
 	}
 }
+
+function editItem(e) {
+	let clickedElement = e.target;
+	if (clickedElement.parentElement.classList.contains('edit-item')) {
+		const li = clickedElement.parentElement.parentElement;
+		const taskId = li.dataset.id;
+		editingTaskId = taskId;
+		DOM.renderTasks(activeProject, editingTaskId);
+
+		console.log(editingTaskId);
+
+		// activeProject.updateTask(editingTaskId, updateData);
+		//
+	}
+}
 function isCompleted(e) {
 	const clickedElement = e.target;
 	if (clickedElement.type === 'checkbox') {
@@ -57,9 +73,10 @@ function isCompleted(e) {
 		const taskId = li.dataset.id;
 		const activeTask = activeProject.getTask(taskId);
 		activeTask.toggleComplete();
-		DOM.renderTasks(activeProject);
+		DOM.renderTasks(activeProject, editingTaskId);
 	}
 }
 
 list.addEventListener('change', isCompleted);
 list.addEventListener('click', removeItem);
+list.addEventListener('click', editItem);
