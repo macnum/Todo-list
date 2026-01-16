@@ -13,6 +13,7 @@ const DOM = (() => {
 				console.log('This task is being edited:', task.title);
 				const input = document.createElement('input');
 				input.type = 'text';
+				input.className = 'edit-title-input';
 				input.value = task.title;
 
 				li.appendChild(input);
