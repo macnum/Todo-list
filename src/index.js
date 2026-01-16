@@ -31,7 +31,7 @@ function createTask(e) {
 		titleText,
 		descriptionText,
 		dueDateText,
-		priorityText
+		priorityText,
 	);
 
 	activeProject.addTask(newTask);
@@ -77,6 +77,28 @@ function isCompleted(e) {
 	}
 }
 
+function cancelEditingItem(e) {
+	const clickedElement = e.target;
+	if (clickedElement.parentElement.classList.contains('cancel-input')) {
+		editingTaskId = null;
+		DOM.renderTasks(activeProject);
+	}
+}
+function saveEditingItem(e) {
+	const clickedElement = e.target;
+	if (clickedElement.parentElement.classList.contains('save-item')) {
+		const li = clickedElement.parentElement.parentElement;
+		const editTitleInput = li.querySelector('.edit-title-input');
+		const newTitleText = editTitleInput.value;
+		const taskId = li.dataset.id;
+		activeProject.updateTask(taskId, { title: newTitleText });
+		editingTaskId = null;
+		DOM.renderTasks(activeProject);
+	}
+}
+
 list.addEventListener('change', isCompleted);
 list.addEventListener('click', removeItem);
 list.addEventListener('click', editItem);
+list.addEventListener('click', saveEditingItem);
+list.addEventListener('click', cancelEditingItem);
