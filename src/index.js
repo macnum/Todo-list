@@ -140,6 +140,19 @@ function saveToLocalStorage() {
 	// console.log('Saved!', dataToSave);
 }
 
+showModalBtn.addEventListener('click', () => {
+	modal.style.display = 'flex';
+});
+closeModalBtn.addEventListener('click', () => {
+	modal.style.display = 'none';
+});
+showModalBtn.addEventListener('click', (e) => {
+	if (e.target === modal) {
+		modal.computedStyleMap.display = 'flex';
+		modal.style.display = 'none';
+	}
+});
+
 list.addEventListener('change', isCompleted);
 list.addEventListener('click', removeItem);
 list.addEventListener('click', editItem);
