@@ -6,15 +6,16 @@ import Task from './task.js';
 import Project from './project.js';
 import ProjectManager from './projectManager.js';
 
-const modal = document.querySelector('#modal-overlay');
-const showModalBtn = document.querySelector('#show-modal');
-const closeModalBtn = document.querySelector('#close-modal');
+const dialog = document.querySelector('#taskDialog');
+const showDialog = document.querySelector('#showBtn');
+const closeDialog = dialog.querySelector('#closeBtn');
 
 const form = document.querySelector('#task-form');
 const titleInput = document.querySelector('#title');
 const descriptionInput = document.querySelector('#description');
 const dueDateInput = document.querySelector('#dueDate');
 const priorityInput = document.querySelector('#priority');
+const confirmBtn = document.querySelector('#confirmBtn');
 
 const list = document.querySelector('#task-list');
 
@@ -22,10 +23,8 @@ let editingTaskId = null;
 const savedData = localStorage.getItem('projectManager');
 let projectManager;
 if (savedData) {
-	console.log('found data', savedData);
 	const data = JSON.parse(savedData);
 	projectManager = new ProjectManager(data.name);
-	console.log(projectManager);
 
 	data.projects.forEach((projectData) => {
 		const project = new Project(projectData.name);
@@ -46,9 +45,7 @@ if (savedData) {
 	});
 	projectManager.activeProjectId = data.activeProjectId;
 } else {
-	console.log('no saved data, creating new projectManager');
 	projectManager = new ProjectManager('MY Projects');
-	console.log(projectManager);
 	projectManager.addProject(new Project('Default'));
 }
 const activeProject = projectManager.getActiveProject();
@@ -71,16 +68,19 @@ function createTask(e) {
 	activeProject.addTask(newTask);
 	DOM.renderTasks(activeProject);
 	saveToLocalStorage();
-	console.log(projectManager);
+
+	dialog.close();
+	form.reset();
 }
 saveToLocalStorage();
-form.addEventListener('submit', createTask);
+
 DOM.renderTasks(activeProject);
 
 function removeItem(e) {
 	let clickedElement = e.target;
+
 	if (clickedElement.parentElement.classList.contains('remove-item')) {
-		const li = clickedElement.parentElement.parentElement;
+		const li = clickedElement.parentElement.parentElement.parentElement;
 		const taskId = li.dataset.id;
 
 		activeProject.removeTask(taskId);
@@ -92,7 +92,7 @@ function removeItem(e) {
 function editItem(e) {
 	let clickedElement = e.target;
 	if (clickedElement.parentElement.classList.contains('edit-item')) {
-		const li = clickedElement.parentElement.parentElement;
+		const li = clickedElement.parentElement.parentElement.parentElement;
 		const taskId = li.dataset.id;
 		editingTaskId = taskId;
 		DOM.renderTasks(activeProject, editingTaskId);
@@ -104,7 +104,7 @@ function editItem(e) {
 function isCompleted(e) {
 	const clickedElement = e.target;
 	if (clickedElement.type === 'checkbox') {
-		const li = clickedElement.parentElement;
+		const li = clickedElement.parentElement.parentElement;
 		const taskId = li.dataset.id;
 		const activeTask = activeProject.getTask(taskId);
 		activeTask.toggleComplete();
@@ -137,24 +137,19 @@ function saveEditingItem(e) {
 function saveToLocalStorage() {
 	const dataToSave = JSON.stringify(projectManager);
 	localStorage.setItem('projectManager', dataToSave);
-	// console.log('Saved!', dataToSave);
 }
 
-showModalBtn.addEventListener('click', () => {
-	modal.style.display = 'flex';
-});
-closeModalBtn.addEventListener('click', () => {
-	modal.style.display = 'none';
-});
-showModalBtn.addEventListener('click', (e) => {
-	if (e.target === modal) {
-		modal.computedStyleMap.display = 'flex';
-		modal.style.display = 'none';
-	}
-});
-
+form.addEventListener('submit', createTask);
 list.addEventListener('change', isCompleted);
 list.addEventListener('click', removeItem);
 list.addEventListener('click', editItem);
 list.addEventListener('click', saveEditingItem);
 list.addEventListener('click', cancelEditingItem);
+
+showDialog.addEventListener('click', () => {
+	dialog.showModal();
+});
+closeDialog.addEventListener('click', () => {
+	dialog.close();
+	form.reset();
+});

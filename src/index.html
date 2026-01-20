@@ -15,43 +15,48 @@
 <body>
 
     <div class="todo-list-container">
-        <div class="form-container">
-            <div class="modal-overlay" id="modal-overlay">
-                <div class="modal-content">
-                    <button class="close-modal" id="close-modal">
-                        &times;
-                    </button>
-                    <h2>Add New Task</h2>
-                    <form action="#" id="task-form">
-                        <div class="form-control">
-                            <input class="form-input" name="title" type="text" id="title" placeholder="T0-do name">
-                        </div>
-                        <div class="form-control">
-                            <textarea name="description" id="description" cols="30"
-                                rows="2">Add a description</textarea>
-                        </div>
-                        <div class="form-control">
-                            <input class="form-input" name="date" type="date" id="dueDate">
-                        </div>
-                        <div class="form-control">
-                            <select name="priority" id="priority">
-                                <option value="priority 1">priority 1</option>
-                                <option value="priority 2">priority 2</option>
-                                <option value="priority 3">priority 3</option>
-                                <option value="priority 4">priority 4</option>
-                            </select>
-                        </div>
-                        <div class="form-control">
-                            <button type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
+
+        <dialog id="taskDialog">
+            <div class="dialog-content">
+                <button class="close-btn" id="closeBtn">
+                    &times;
+                </button>
+                <h2>Add New Task</h2>
+                <form action="#" id="task-form">
+                    <div class="form-control">
+                        <input required class="form-input" name="title" type="text" id="title" placeholder="T0-do name">
+                    </div>
+                    <div class="form-control">
+                        <textarea name="description" id="description" cols="30" rows="2"
+                            placeholder="Add a description"></textarea>
+                    </div>
+                    <div class="form-control">
+                        <input class="form-input" name="date" type="date" id="dueDate">
+                    </div>
+                    <div class="form-control">
+                        <select name="priority" id="priority">
+                            <option value="default">priority…</option>
+                            <option value="priority 1">priority 1</option>
+                            <option value="priority 2">priority 2</option>
+                            <option value="priority 3">priority 3</option>
+                            <option value="priority 4">priority 4</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <button id="confirmBtn" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-        </div>
+        </dialog>
+
+
+
+
+
         <main>
             <div class="nav-list">
                 <nav class="nav">
-                    <h3><button id="show-modal"><i class="fa-solid fa-plus-circle"></i> Add task</button></h3>
+                    <h3><button id="showBtn"><i class="fa-solid fa-plus-circle"></i> Add task</button></h3>
                     <ul>
 
                         <li><i class="fa-solid fa-search"></i> Search</li>
@@ -71,6 +76,10 @@
                 </nav>
             </div>
             <div class="content-container">
+                <div class="content-header">
+                    <h1>My Tasks</h1>
+                    <p class="task-count"><span id="task-count">0</span> tasks</p>
+                </div>
                 <ul class="items" id="task-list">
 
                 </ul>
