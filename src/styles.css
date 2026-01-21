@@ -535,6 +535,9 @@ dialog {
 }
 
 #showBtn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
   background: none;
   border: none;
   color: #3b82f6;
@@ -546,6 +549,7 @@ dialog {
   gap: 0.5rem;
   padding: 0;
   transition: color 0.2s;
+  z-index: 10;
 }
 
 #showBtn:hover {
@@ -555,6 +559,7 @@ dialog {
 #showBtn i {
   color: inherit;
   margin-right: 0;
+  font-size: 50px;
 }
 
 @starting-style {
@@ -656,4 +661,47 @@ dialog:open::backdrop {
 .task-count {
   color: #64748b;
   font-size: 0.875rem;
+}
+
+.red {
+  color: rgb(189, 22, 22);
+}
+
+.orange {
+  color: rgb(171, 112, 2);
+}
+.green{
+  color: rgb(18, 192, 18);
+}
+.blue{
+  color: rgb(120, 120, 240);
+}
+.red-border.rounded-left {
+  border-left:4px solid rgb(189, 22, 22);
+} 
+
+.rounded-left {
+  border-radius: 0.5rem;
+}
+.orange-border.rounded-left {
+  border-left:4px solid  rgb(171, 112, 2);
+}
+.green-border.rounded-left {
+  border-left:4px solid  rgb(18, 192, 18);
+}
+.blue-border.rounded-left{
+  border-left:4px solid  rgb(120, 120, 240);
+}
+
+.priority-text, .task-date {
+  font-size: 10px;
+}
+
+
+.column-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 10px;
 }
