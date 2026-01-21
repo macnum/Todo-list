@@ -1,10 +1,12 @@
-// import './styles.css';
+import './styles.css';
 
 import DOM from './dom.js';
 
 import Task from './task.js';
 import Project from './project.js';
 import ProjectManager from './projectManager.js';
+
+import { todayDate } from './utils.js';
 
 const dialog = document.querySelector('#taskDialog');
 const showDialog = document.querySelector('#showBtn');
@@ -19,6 +21,7 @@ const confirmBtn = document.querySelector('#confirmBtn');
 
 const list = document.querySelector('#task-list');
 
+dueDateInput.min = todayDate;
 let editingTaskId = null;
 const savedData = localStorage.getItem('projectManager');
 let projectManager;
