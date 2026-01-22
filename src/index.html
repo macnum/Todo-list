@@ -49,6 +49,24 @@
             </div>
         </dialog>
 
+        <dialog id="projectDialog" closedby="any">
+            <div class="dialog-content">
+                <button class="close-btn" id="closeProjectBtn">
+                    &times;
+                </button>
+                <h2>Add New Project</h2>
+                <form action="#" id="project-form">
+                    <div class="form-control">
+                        <input required class="form-input" name="projectName" type="text" id="projectName"
+                            placeholder="Project Name">
+                    </div>
+
+                    <div class="form-control">
+                        <button id="confirmBtn" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
 
 
 
@@ -67,8 +85,10 @@
                     </ul>
                 </nav>
                 <nav class="nav">
-                    <h3><button class="btn"><i class="fa-solid fa-person-circle-plus"></i></button> My Project</h3>
-                    <ul>
+                    <h3><button class="btn"><i class="fa-solid fa-person-circle-plus"></i></button> My Project <button
+                            id="showProjectBtn" class="btn margin-left"><i class="fa-solid fa-plus"></i></button></h3>
+                    <ul id="project-list">
+                        <li class="project-item">my cool project</li>
 
                         <!-- <li><button class="btn"><i class="fa-solid fa-search"></i></button> fitness</li> -->
 
