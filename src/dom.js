@@ -1,28 +1,46 @@
+import ProjectManager from './projectManager.js';
 import getDateLabel from './utils.js';
-console.log(getDateLabel(new Date().toISOString().slice(0, 10)));
-console.log(getDateLabel('2026-01-22'));
-console.log(getDateLabel('2026-01-20'));
 const DOM = (() => {
-	function renderProjects(projectManager) {}
+	function renderProjects(projectManager) {
+		const list = document.querySelector('#project-list');
+		list.innerHTML = '';
+
+		projectManager.projects.forEach((project) => {
+			const li = document.createElement('li');
+			li.className = 'project-item';
+			li.dataset.id = project.id;
+
+			if (project.id === projectManager.activeProjectId) {
+				li.classList.add('active-project');
+			}
+
+			const projectText = document.createElement('span');
+			projectText.className = 'project-text';
+			projectText.textContent = project.name;
+
+			li.appendChild(projectText);
+			list.appendChild(li);
+		});
+	}
 
 	function renderTasks(project, editingTaskId) {
 		const list = document.querySelector('#task-list');
 		list.innerHTML = '';
+		if (project.tasks.length === 0) {
+			const emptyState = document.createElement('div');
+			emptyState.className = 'empty-state';
+			emptyState.innerHTML = `
+      <i class="fa-solid fa-clipboard-list"></i>
+      <p>No tasks yet. Click "Add task" to create one!</p>
+    `;
+			list.appendChild(emptyState);
+
+			return;
+		}
 
 		project.tasks.forEach((task) => {
 			const li = document.createElement('li');
 			li.dataset.id = task.id;
-			if (project.tasks.length === 0) {
-				const emptyState = document.createElement('div');
-				emptyState.className = 'empty-state';
-				emptyState.innerHTML = `
-      <i class="fa-solid fa-clipboard-list"></i>
-      <p>No tasks yet. Click "Add task" to create one!</p>
-    `;
-				list.appendChild(emptyState);
-				console.log(emptyState);
-				return;
-			}
 
 			if (task.id === editingTaskId) {
 				console.log('This task is being edited:', task.title);
@@ -51,14 +69,13 @@ const DOM = (() => {
 				saveButton.className = 'save-item btn-link';
 				const cancelIcon = document.createElement('i');
 				const saveIcon = document.createElement('i');
-				cancelIcon.className = 'fa-solid fa-cancel';
+				cancelIcon.className = 'fa-solid fa-xmark';
 				saveIcon.className = 'fa-solid fa-save';
 
 				cancelButton.appendChild(cancelIcon);
 				saveButton.appendChild(saveIcon);
 				li.appendChild(saveButton);
 				li.appendChild(cancelButton);
-				console.log(input);
 			} else {
 				const leftContainer = document.createElement('div');
 				leftContainer.className = 'task-left';
@@ -78,6 +95,10 @@ const DOM = (() => {
 				const priority = document.createElement('span');
 				priority.className = 'task-priority';
 				priority.textContent = task.priority;
+
+				if (task.description) {
+					li.title = task.description;
+				}
 
 				switch (task.priority) {
 					case 'Critical':
@@ -101,7 +122,6 @@ const DOM = (() => {
 						priority.className = 'blue priority-text';
 						break;
 				}
-				console.log(task.dueDate);
 				const taskDate = document.createElement('span');
 				taskDate.className = 'task-date';
 
